@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoffeeHub</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="relative">
+
+  
+  <nav class="flex justify-between items-center p-4 bg-black bg-opacity-70 text-yellow-100 shadow-md fixed w-full top-0 left-0 z-10 backdrop-blur-sm">
+    <div class="flex items-center gap-2">
+      <span class="font-bold text-xl">JustCoffee</span>
+    </div>
+    <button id="navToggle" class="sm:hidden text-yellow-100 text-2xl focus:outline-none ml-auto">
+      <span class="fas fa-bars"></span>
+    </button>
+    <ul id="navMenu" class="flex gap-6 text-lg sm:flex-row flex-col sm:static fixed top-16 left-0 w-full sm:w-auto bg-black bg-opacity-90 sm:bg-transparent p-4 sm:p-0 transition-all duration-300 z-20 hidden sm:flex">
+      <li><a href="#" class="hover:text-yellow-300 flex items-center gap-1"><i class="fas fa-home"></i><span>Home</span></a></li>
+      <li><a href="explorecoffee.html" class="hover:text-yellow-300 flex items-center gap-1"><i class="fas fa-coffee"></i><span>Coffees</span></a></li>
+      <li><a href="feedbackcoffee.html" class="hover:text-yellow-300 flex items-center gap-1"><i class="fas fa-envelope"></i><span>Contact</span></a></li>
+      <li><a href="locationlonlat.html" class="hover:text-yellow-300 flex items-center gap-1"><span>Location</span></a></li>
+    </ul>
+  </nav>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('hidden');
+    });
+ 
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 640) navMenu.classList.add('hidden');
+      });
+    });
+  </script>
+
+  <header class="flex flex-col items-center justify-center text-center min-h-screen px-4 bg-black bg-opacity-40 pt-24 relative" style="background: none;">
+    <img src="coffeehomeimg.jpg" alt="CoffeeHub Background" class="absolute inset-0 w-full h-full object-cover -z-10" style="pointer-events:none;" />
+    <div class="relative z-10 flex flex-col items-center justify-center">
+      <img src="logo.jpg" alt="CoffeeHub Logo" class="w-32 h-32 rounded-full shadow-2xl mb-6 bg-white bg-opacity-80">
+
+      <h1 class="text-5xl font-extrabold text-yellow-100 mb-4 drop-shadow-lg">Welcome to JustCoffee</h1>
+      <p class="text-xl text-amber-100 mb-6 max-w-xl mx-auto bg-black bg-opacity-60 rounded-lg p-4 shadow">Explore refreshing hot coffee drinks, discover new type of coffee, and share your love for coffee! Your journey to the perfect cup starts here.</p>
+</header>
+
+
+<div class="w-full bg-black flex flex-col items-center pb-8 pt-28">
+  <div class="w-full max-w-xl flex flex-col items-center">
+    <video controls class="w-full rounded-lg shadow" poster="Orange.jpg">
+      <source src="coffeevid.mp4" type="video/mp4">
+      <track src="coffeesub.vtt" kind="subtitles" srclang="en" label="English (Coffee)" default>
+      <track src="subtitles.vtt" kind="subtitles" srclang="en" label="English (Alt)">
+      Your browser does not support the video tag.
+    </video>
+    <p class="text-center text-sm text-amber-100 mt-2">Watch: Get to know something about coffee</p>
+  </div>
+  </header>
+
+  
+  <footer class="mt-8 p-4 bg-amber-800 text-white text-center w-full">
+    <div id="greetingMessage" class="text-lg font-bold mb-2"></div>
+    <div id="locationMessage" class="text-sm mb-2"></div>
+    <p class="mt-2">&copy; 2025 CoffeeHub. All rights reserved.</p>
+  </footer>
+</body>
+</html>

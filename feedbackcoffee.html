@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoffeeHub Feedback</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-yellow-900 to-black">
+  <div class="w-full max-w-md bg-gradient-to-br from-amber-200 via-white to-yellow-100 border-2 border-amber-400 rounded-2xl shadow-2xl p-10 text-amber-900 mt-12">
+    <h2 class="text-2xl font-bold text-amber-900 mb-4 text-center">We Value Your Feedback</h2>
+    <form id="feedbackForm" class="space-y-4">
+      <div>
+        <label for="name" class="block text-amber-800 font-semibold mb-1">Name</label>
+        <input type="text" id="name" name="name" required class="w-full p-2 border border-amber-400 rounded focus:outline-none focus:ring-2 focus:ring-amber-600 hover:border-amber-600 transition">
+      </div>
+      <div>
+        <label for="email" class="block text-amber-800 font-semibold mb-1">Email</label>
+        <input type="email" id="email" name="email" required class="w-full p-2 border border-amber-400 rounded focus:outline-none focus:ring-2 focus:ring-amber-600 hover:border-amber-600 transition">
+      </div>
+      <div>
+        <label for="favorite" class="block text-amber-800 font-semibold mb-1">Favorite Coffee</label>
+        <input type="text" id="favorite" name="favorite" required class="w-full p-2 border border-amber-400 rounded focus:outline-none focus:ring-2 focus:ring-amber-600 hover:border-amber-600 transition">
+      </div>
+      <button type="submit" class="w-full bg-amber-700 text-white font-bold py-2 rounded hover:bg-amber-900 transition">Submit</button>
+      <div id="formMessage" class="text-center text-red-600 font-semibold"></div>
+    </form>
+    <div id="greetingMessage" class="text-lg font-bold text-center mt-4"></div>
+  </div>
+  <script>
+    
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const favorite = document.getElementById('favorite').value.trim();
+      const message = document.getElementById('formMessage');
+      message.textContent = '';
+
+      if (!name || !email || !favorite) {
+        message.textContent = "All fields are required.";
+        return;
+      }
+      if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        message.textContent = "Please enter a valid email address.";
+        return;
+      }
+
+      localStorage.setItem('coffeehub_greet', JSON.stringify({ name, favorite }));
+      message.textContent = "Thank you for your feedback!";
+      message.classList.remove('text-red-600');
+      message.classList.add('text-green-600');
+      this.reset();
+      showGreeting();
+    });
+
+    function showGreeting() {
+      const greetDiv = document.getElementById('greetingMessage');
+      const data = localStorage.getItem('coffeehub_greet');
+      if (data) {
+        try {
+          const { name, favorite } = JSON.parse(data);
+          greetDiv.textContent = `Hello, ${name}! You Love ${favorite}.`;
+        } catch {}
+      } else {
+        greetDiv.textContent = '';
+      }
+    }
+    showGreeting();
+  </script>
+</body>
+</html>
